@@ -73,7 +73,7 @@ public class UpdatePetByIdUnhappyTest {
                 .addPathParam("petId", "10")
                 .addQueryParams(Map.of(
                         "name", "jason",
-                        "status", true
+                        "status", 400000000
                 ))
                 .build());
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));
