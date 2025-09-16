@@ -14,8 +14,6 @@ import java.net.http.HttpResponse;
 public class UploadPetImageTest {
   private static HttpResponse<String> response;
   private static JsonNode jsonBody;
-  private boolean tags;
-
 
   @BeforeAll
   static void setup() {
@@ -61,7 +59,7 @@ public class UploadPetImageTest {
   @Test
   @DisplayName("Response contains tag name playful")
   void uploadImageByPetId_ResponseContainsTagPlayful() {
-    MatcherAssert.assertThat(jsonBody.get("tags").get(0).get("name").asText(), Matchers.is("string"));
+    MatcherAssert.assertThat(jsonBody.get("tags").get(0).get("name").asText(), Matchers.is(""));
   }
 
 

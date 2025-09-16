@@ -38,4 +38,14 @@ public class UploadPetImageRequest {
       .build();
   }
 
+  public static HttpRequest uploadImageRequestUnsupportedMediaType() throws URISyntaxException, FileNotFoundException {
+
+    return HttpRequest.newBuilder()
+      .uri(new URI("https://petstore3.swagger.io/api/v3/pet/10/uploadImage"))
+      .header("accept", "application/json")
+      .header("Content-Type", "text/plain")
+      .POST(HttpRequest.BodyPublishers.ofFile(Path.of("src/test/resources/test-image.txt")))
+      .build();
+  }
+
 }
