@@ -59,7 +59,7 @@ public class UploadPetImageTest {
   @Test
   @DisplayName("Response contains tag name playful")
   void uploadImageByPetId_ResponseContainsTagPlayful() {
-    MatcherAssert.assertThat(jsonBody.get("tags").get(0).get("name").asText(), Matchers.is(""));
+    MatcherAssert.assertThat(jsonBody.get("tags").get(0).get("name").asText(), Matchers.is("string"));
   }
 
 
