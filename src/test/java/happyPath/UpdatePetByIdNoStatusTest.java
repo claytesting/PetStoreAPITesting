@@ -10,24 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static utils.PetShopAPI.updatePetByIdRequestSpec;
+
 public class UpdatePetByIdNoStatusTest {
 
     private static Response response;
-    private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
-    private static final String POST_BY_ID_PATH = "/pet/{petId}";
 
     @BeforeAll
     static void setup() {
         response = RestAssured
-                .given()
-                .baseUri(BASE_URI)
-                .basePath(POST_BY_ID_PATH)
-                .headers(Map.of("Accept", "application/json"))
-                .pathParam("petId", "10")
+                .given(updatePetByIdRequestSpec())
                 .queryParams(Map.of(
                         "name", "jason"
                 ))
-
                 .when()
                 .post()
 

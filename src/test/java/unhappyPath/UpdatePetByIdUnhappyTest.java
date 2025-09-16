@@ -18,10 +18,6 @@ public class UpdatePetByIdUnhappyTest {
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String POST_BY_ID_PATH = "/pet/{petId}";
 
-    @BeforeAll
-    static void setup() {
-    }
-
     private static void postNewPet(RequestSpecification spec) {
         response = RestAssured
                 .given(spec)
