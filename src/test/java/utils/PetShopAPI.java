@@ -6,7 +6,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.Map;
 
 public class PetShopAPI {
-    public static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
+    private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String POST_BY_ID_PATH = "/pet/{petId}";
 
     public static RequestSpecBuilder defaultRequestSpec(String path) {

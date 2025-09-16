@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static utils.PetShopAPI.BASE_URI;
+import static utils.PetShopAPI.defaultRequestSpec;
 
 public class UpdatePetByIdUnhappyTest {
 
@@ -22,8 +22,6 @@ public class UpdatePetByIdUnhappyTest {
     private static void postNewPet(RequestSpecification spec) {
         response = RestAssured
                 .given(spec)
-                .baseUri(BASE_URI)
-                .basePath(POST_BY_ID_PATH)
                 .headers(Map.of("Accept", "application/json"))
 
                 .when()
@@ -37,7 +35,7 @@ public class UpdatePetByIdUnhappyTest {
     @Test
     @DisplayName("Given ID does not exist return code 404")
     void updatePetById_InvalidID_ReturnCode404() {
-        postNewPet(new RequestSpecBuilder()
+        postNewPet(defaultRequestSpec(POST_BY_ID_PATH)
                 .addPathParam("petId", "100000")
                 .addQueryParam("name", "jason")
                 .build());
@@ -47,7 +45,7 @@ public class UpdatePetByIdUnhappyTest {
     @Test
     @DisplayName("Given no status or name return code 400")
     void updatePetById_NoNameOrStatus_ReturnCode400() {
-        postNewPet(new RequestSpecBuilder()
+        postNewPet(defaultRequestSpec(POST_BY_ID_PATH)
                 .addPathParam("petId", "10")
                 .build());
         MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));
@@ -56,7 +54,7 @@ public class UpdatePetByIdUnhappyTest {
     @Test
     @DisplayName("Given invalid name return code 400")
     void updatePetById_InvalidName_ReturnCode400() {
-        postNewPet(new RequestSpecBuilder()
+        postNewPet(defaultRequestSpec(POST_BY_ID_PATH)
                 .addPathParam("petId", "10")
                 .addQueryParam("name", 1234)
                 .build());
@@ -66,7 +64,7 @@ public class UpdatePetByIdUnhappyTest {
     @Test
     @DisplayName("Given status name return code 400")
     void updatePetById_InvalidStatus_ReturnCode400() {
-        postNewPet(new RequestSpecBuilder()
+        postNewPet(defaultRequestSpec(POST_BY_ID_PATH)
                 .addPathParam("petId", "10")
                 .addQueryParams(Map.of(
                         "name", "jason",
