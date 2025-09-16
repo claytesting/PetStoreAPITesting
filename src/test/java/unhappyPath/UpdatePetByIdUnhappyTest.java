@@ -12,10 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static utils.PetShopAPI.BASE_URI;
+
 public class UpdatePetByIdUnhappyTest {
 
     private static Response response;
-    private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String POST_BY_ID_PATH = "/pet/{petId}";
 
     private static void postNewPet(RequestSpecification spec) {
