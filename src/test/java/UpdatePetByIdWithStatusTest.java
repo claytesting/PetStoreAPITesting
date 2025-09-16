@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class UpdatePetByIdTest {
+public class UpdatePetByIdWithStatusTest {
 
     private static Response response;
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
