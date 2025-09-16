@@ -1,3 +1,5 @@
+package happyPath;
+
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.MatcherAssert;
@@ -8,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class UpdatePetByIdNoStatusTest {
+public class UpdatePetByIdWithStatusTest {
 
     private static Response response;
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
@@ -23,8 +25,9 @@ public class UpdatePetByIdNoStatusTest {
                 .headers(Map.of("Accept", "application/json"))
                 .pathParam("petId", "10")
                 .queryParams(Map.of(
-                        "name", "jason"
-                ))
+                        "name", "jason",
+                        "status", "available"
+                        ))
 
                 .when()
                 .post()
@@ -52,5 +55,12 @@ public class UpdatePetByIdNoStatusTest {
     void updatePetById_ValidData_IdIs10() {
         MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(10));
     }
+
+    @Test
+    @DisplayName("Given valid input data check data in return JSON")
+    void updatePetById_ValidData_StatusIsAvailable() {
+        MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.is("available"));
+    }
+
 
 }
