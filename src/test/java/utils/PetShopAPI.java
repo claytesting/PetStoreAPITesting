@@ -27,9 +27,10 @@ public class PetShopAPI {
                 .build();
     }
 
-    public static RequestSpecification updatePetByJSON() {
+    public static RequestSpecification updatePetByJSONRequestSpec() {
         return defaultRequestSpec(POST_PET)
                 .addHeaders(Map.of("Accept", "application/json"))
+                .setContentType("application/json")
                 .build();
     }
 
@@ -59,7 +60,7 @@ public class PetShopAPI {
 
     public static Integer setupPetForQuery() {
         Response newPet = RestAssured
-                .given(updatePetByJSON())
+                .given(updatePetByJSONRequestSpec())
                 .contentType("application/json")
                 .body("""
                         {
