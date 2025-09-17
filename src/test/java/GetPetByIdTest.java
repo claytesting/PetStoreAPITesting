@@ -111,6 +111,13 @@ public class GetPetByIdTest {
         public void beforeEach() {
             getPetById(1000000000);
         }
+
+        @Test
+        @DisplayName("Get pet with a non-existent Id and check the status code")
+        void getPetWithNegativeId_ChecksStatusCode() {
+
+            MatcherAssert.assertThat(response.statusCode(), is(404));
+        }
     }
 
     @Nested
