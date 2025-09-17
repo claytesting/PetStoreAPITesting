@@ -1,26 +1,29 @@
-import utils.UploadPetImageRequest;
-import com.fasterxml.jackson.databind.JsonNode;
+import Utils.UploadPetImageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pojos.ApiError;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static utils.PetShopAPI.setupPetForQuery;
+
 public class UploadPetImageUnsupportedMediaTest {
   private static HttpResponse<String> response;
-  private static JsonNode jsonBody;
+  private static ApiError errorResponse;
 
   @BeforeAll
   static void setup() {
+    Integer petId = setupPetForQuery();
     try {
       HttpClient client = HttpClient.newHttpClient();
 
-      HttpRequest request = UploadPetImageRequest.uploadImageRequestUnsupportedMediaType();
+      HttpRequest request = UploadPetImageRequest.uploadImageRequestUnsupportedMediaType(petId);
 
       response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -28,11 +31,10 @@ public class UploadPetImageUnsupportedMediaTest {
       System.out.println("Body: " + response.body());
 
       ObjectMapper mapper = new ObjectMapper();
-      jsonBody = mapper.readTree(response.body());
+      errorResponse = mapper.readValue(response.body(), ApiError.class);
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
 
   @Test
@@ -42,8 +44,14 @@ public class UploadPetImageUnsupportedMediaTest {
   }
 
   @Test
-  @DisplayName("Response contains correct message")
-  void uploadImageByPetId_ResponseContainsErrorMessage() {
-    MatcherAssert.assertThat(jsonBody.get("message").asText(), Matchers.is("HTTP 415 Unsupported Media Type"));
+  @DisplayName("Given unsupported media type return response message")
+  void uploadImageByPetId_UnsupportedMedia_ReturnsMessage() {
+    MatcherAssert.assertThat(errorResponse.getMessage(), Matchers.is("HTTP 415 Unsupported Media Type"));
+  }
+
+  @Test
+  @DisplayName("Response contains correct error code")
+  void uploadImageByPetId_ResponseContainsErrorCode() {
+    MatcherAssert.assertThat(errorResponse.getCode(), Matchers.is(415));
   }
 }

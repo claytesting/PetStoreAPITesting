@@ -1,4 +1,4 @@
-import utils.UploadPetImageRequest;
+import Utils.UploadPetImageRequest;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,15 +9,18 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static utils.PetShopAPI.setupPetForQuery;
+
 public class UploadPetImageNoFileTest {
   private static HttpResponse<String> response;
 
   @BeforeAll
   static void setup() {
+    Integer petId = setupPetForQuery();
     try {
       HttpClient client = HttpClient.newHttpClient();
 
-      HttpRequest request = UploadPetImageRequest.uploadImageRequestWithoutFile();
+      HttpRequest request = UploadPetImageRequest.uploadImageRequestWithoutFile(petId);
 
       response = client.send(request, HttpResponse.BodyHandlers.ofString());
 

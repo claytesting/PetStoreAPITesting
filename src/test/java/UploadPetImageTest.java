@@ -1,3 +1,4 @@
+import Utils.UploadPetImageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -5,11 +6,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.Pet;
-import utils.UploadPetImageRequest;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
+import static utils.PetShopAPI.setupPetForQuery;
 
 public class UploadPetImageTest {
   private static HttpResponse<String> response;
@@ -17,10 +19,11 @@ public class UploadPetImageTest {
 
   @BeforeAll
   static void setup() {
+    Integer petId = setupPetForQuery();
     try {
       HttpClient client = HttpClient.newHttpClient();
 
-      HttpRequest request = UploadPetImageRequest.uploadImageRequestSuccess();
+      HttpRequest request = UploadPetImageRequest.uploadImageRequestSuccess(petId);
 
       response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -44,7 +47,7 @@ public class UploadPetImageTest {
   @Test
   @DisplayName("Response contains correct pet ID")
   void uploadImageByPetId_ResponseContainsPetId() {
-    MatcherAssert.assertThat(petResponse.getId(), Matchers.is(10));
+    MatcherAssert.assertThat(petResponse.getId(), Matchers.is(7041));
   }
 
   @Test
@@ -68,5 +71,4 @@ public class UploadPetImageTest {
     MatcherAssert.assertThat(petResponse.getStatus(), Matchers.is("available")
     );
   }
-
 }
