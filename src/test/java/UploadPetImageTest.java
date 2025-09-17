@@ -1,4 +1,4 @@
-import Utils.UploadPetImageRequest;
+import utils.UploadPetImageRequest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
