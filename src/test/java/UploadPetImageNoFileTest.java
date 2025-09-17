@@ -1,4 +1,4 @@
-import utils.UploadPetImageRequest;
+import Utils.UploadPetImageRequest;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
