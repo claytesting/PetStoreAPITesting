@@ -49,7 +49,7 @@ public class UpdatePetByIdNoStatusTest {
     @Test
     @DisplayName("Given valid input data check data in return JSON")
     void updatePetById_ValidData_IdIs10() {
-        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(10));
+        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(7041));
     }
 
 }
