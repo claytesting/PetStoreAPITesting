@@ -45,18 +45,16 @@ public class PetShopAPI {
     }
 
     public static Response getPetById(Object petId) {
-        Response response;
-        return response =
-                RestAssured
-                        .given().spec(getPetByIdRequestSpec(petId))
+        return RestAssured
+                .given().spec(getPetByIdRequestSpec(petId))
 
-                        .when()
-                        .log().all()
-                        .get()
-                        .then()
-                        .log().all()
-                        .extract()
-                        .response();
+                .when()
+                .log().all()
+                .get()
+                .then()
+                .log().all()
+                .extract()
+                .response();
     }
 
     public static Integer setupPetForQuery() {
