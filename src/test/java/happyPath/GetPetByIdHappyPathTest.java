@@ -11,21 +11,21 @@ import org.junit.jupiter.api.*;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
-import static utils.PetShopAPI.getPetById;
-import static utils.PetShopAPI.getPetByIdRequestSpec;
+import static utils.PetShopAPI.*;
 
 public class GetPetByIdHappyPathTest {
 
     private static Response response;
 
-    private static final int validPetId = 10;
+    private static int validPetId;
 
-    private static final String NAME = "";
+    private static final String NAME = "doggie";
     private static final String STATUS = "available";
 
-    @BeforeAll
-    static void setup() {
-           response = getPetById(validPetId);
+    @BeforeEach
+    void setup() {
+        validPetId = setupPetForQuery();
+        response = getPetById(validPetId);
     }
 
     @Test
@@ -45,11 +45,11 @@ public class GetPetByIdHappyPathTest {
     void getPetWithId_validateResponseName() {
         MatcherAssert.assertThat(response.jsonPath().getString("name"), Matchers.containsString(NAME));
     }
+
     @Test @DisplayName("Validate the status in the response")
     void getPetWithId_validateResponseStatus() {
         MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.containsString(STATUS));
     }
-
 
     @Nested
     class UnhappyPathDefaultErrorTest {

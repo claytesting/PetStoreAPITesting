@@ -11,16 +11,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static utils.PetShopAPI.setupPetForQuery;
+
 public class UploadPetImageUnsupportedMediaTest {
   private static HttpResponse<String> response;
   private static JsonNode jsonBody;
 
   @BeforeAll
   static void setup() {
+    Integer petId = setupPetForQuery();
     try {
       HttpClient client = HttpClient.newHttpClient();
 
-      HttpRequest request = UploadPetImageRequest.uploadImageRequestUnsupportedMediaType();
+      HttpRequest request = UploadPetImageRequest.uploadImageRequestUnsupportedMediaType(petId);
 
       response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
