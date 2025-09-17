@@ -9,11 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojos.User;
 
-import java.util.Map;
-
 import static utils.PetShopAPI.*;
 
-public class GetUserByUsernameTest {
+public class GetUserByUsernameHappyTest {
 
     private static Response response;
     private static User user;
