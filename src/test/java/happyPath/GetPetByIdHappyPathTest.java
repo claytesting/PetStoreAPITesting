@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
+import pojos.Pet;
 
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import static utils.PetShopAPI.*;
 public class GetPetByIdHappyPathTest {
 
     private static Response response;
-
+    private static Pet pet;
     private static int validPetId;
 
     private static final String NAME = "doggie";
@@ -26,12 +27,13 @@ public class GetPetByIdHappyPathTest {
     void setup() {
         validPetId = setupPetForQuery();
         response = getPetById(validPetId);
+        pet = response.as(Pet.class);
     }
 
     @Test
     @DisplayName("Get pet with a valid Id returns a pet with that Id")
     void getPetWithId_ReturnsThatPet() {
-        MatcherAssert.assertThat(response.jsonPath().get("id"), is(validPetId));
+        MatcherAssert.assertThat(pet.getId(), is(validPetId));
     }
 
     @Test
@@ -43,12 +45,12 @@ public class GetPetByIdHappyPathTest {
     @Test
     @DisplayName("Validate the name in the response")
     void getPetWithId_validateResponseName() {
-        MatcherAssert.assertThat(response.jsonPath().getString("name"), Matchers.containsString(NAME));
+        MatcherAssert.assertThat(pet.getName(), Matchers.containsString(NAME));
     }
 
     @Test @DisplayName("Validate the status in the response")
     void getPetWithId_validateResponseStatus() {
-        MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.containsString(STATUS));
+        MatcherAssert.assertThat(pet.getStatus(), Matchers.containsString(STATUS));
     }
 
     @Nested
