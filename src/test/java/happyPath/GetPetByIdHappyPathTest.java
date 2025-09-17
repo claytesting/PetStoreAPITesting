@@ -22,8 +22,8 @@ public class GetPetByIdHappyPathTest {
     private static final String NAME = "doggie";
     private static final String STATUS = "available";
 
-    @BeforeAll
-    static void setup() {
+    @BeforeEach
+    void setup() {
         validPetId = setupPetForQuery();
         response = getPetById(validPetId);
     }
