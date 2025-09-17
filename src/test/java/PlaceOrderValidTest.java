@@ -5,12 +5,14 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pojos.Order;
 
 import java.util.Map;
 
 public class PlaceOrderValidTest {
 
     private static Response response;
+    private static Order order;
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String PLACE_ORDER_PATH = "/store/order";
 
@@ -39,6 +41,7 @@ public class PlaceOrderValidTest {
                 .then()
                 .log().all()
                 .extract().response();
+        order = response.as(Order.class);
     }
 
     @Test
@@ -50,25 +53,24 @@ public class PlaceOrderValidTest {
     @Test
     @DisplayName("Happy Path: Given valid input data check quantity is 5")
     void placeOrder_ValidData_QuantityIs5() {
-        MatcherAssert.assertThat(response.jsonPath().getInt("quantity"), Matchers.is(5));
+        MatcherAssert.assertThat(order.getQuantity(), Matchers.is(5));
     }
 
     @Test
     @DisplayName("Happy Path: Given valid input data check status is approved")
     void placeOrder_ValidData_StatusIsApproved() {
-        MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.is("approved"));
+        MatcherAssert.assertThat(order.getStatus(), Matchers.is("approved"));
     }
 
     @Test
     @DisplayName("Happy Path: Given valid input data check complete is true")
     void placeOrder_ValidData_CompleteIsTrue() {
-        MatcherAssert.assertThat(response.jsonPath().getBoolean("complete"), Matchers.is(true));
+        MatcherAssert.assertThat(order.isComplete(), Matchers.is(true));
     }
 
     @Test
     @DisplayName("Happy Path: Given valid input data check id is 10")
     void placeOrder_ValidData_IdIs10() {
-        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(10));
+        MatcherAssert.assertThat(order.getId(), Matchers.is(10));
     }
-
 }

@@ -34,7 +34,6 @@ public class PlaceOrderInvalidTest {
                 .extract().response();
     }
 
-    // Should be throwing a 400 but accepts the negative and returns a 200
     @Test
     @DisplayName("Unhappy Path: Given invalid id (abc) return 400 with input error message")
     void placeOrder_InvalidId_Return400() {
@@ -73,6 +72,7 @@ public class PlaceOrderInvalidTest {
                 containsString("Input error: unable to convert input to io.swagger.petstore.model.Order"));
     }
 
+    //Negtaive ID should return a 400 but returns a 200
     @Test
     @DisplayName("Unhappy Path: Given invalid id (-10) return 400 with input error message")
     void placeOrder_NegativeId_Return400() {
@@ -92,6 +92,7 @@ public class PlaceOrderInvalidTest {
                 containsString("Input error: unable to convert input to io.swagger.petstore.model.Order"));
     }
 
+    //Should return a 422 but returns a 200
     @Test
     @DisplayName("Unhappy Path: Given invalid shipDate (invalid month) return 422")
     void placeOrder_InvalidDate_Return422() {
@@ -108,12 +109,13 @@ public class PlaceOrderInvalidTest {
         MatcherAssert.assertThat(invalidResponse.statusCode(), is(422));
     }
 
+    //Should return a 422 but returns a 200
     @Test
     @DisplayName("Unhappy Path: Given non-existent ID return 422 with error message")
     void placeOrder_NonExistentId_Return422() {
         Response invalidResponse = postInvalidOrder("""
                 {
-                  "id": 999999,
+                  "id": 99999999999999999,
                   "petId": 198772,
                   "quantity": 1,
                   "shipDate": "2025-09-16T10:17:34.144Z",
@@ -127,6 +129,7 @@ public class PlaceOrderInvalidTest {
                 containsString("ID doesn’t exist"));
     }
 
+    //Should return a 500 but returns a 200
     @Test
     @DisplayName("Unhappy Path: Unexpected error should return 500")
     void placeOrder_UnexpectedError_Return500() {
