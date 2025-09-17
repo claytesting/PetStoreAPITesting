@@ -26,7 +26,6 @@ public class UpdatePetByIdUnhappyPathTest {
                 .post()
 
                 .then()
-                .log().all()
                 .extract().response();
     }
 

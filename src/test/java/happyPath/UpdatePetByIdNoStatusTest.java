@@ -29,7 +29,6 @@ public class UpdatePetByIdNoStatusTest {
                 .post()
 
                 .then()
-                .log().all()
                 .extract().response();
 
     }

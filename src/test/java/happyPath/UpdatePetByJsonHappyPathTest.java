@@ -44,7 +44,6 @@ public class UpdatePetByJsonHappyPathTest {
                 .put()
 
                 .then()
-                .log().all()
                 .extract().response();
         pet = response.as(Pet.class);
 
