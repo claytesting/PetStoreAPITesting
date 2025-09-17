@@ -23,7 +23,6 @@ public class GetUserByUsernameUnhappyTest {
                 .get()
 
                 .then()
-                .log().all()
                 .extract().response();
     }
 
