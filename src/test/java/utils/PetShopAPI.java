@@ -20,10 +20,10 @@ public class PetShopAPI {
                 .setBasePath(path);
     }
 
-    public static RequestSpecification updatePetByIdRequestSpec() {
+    public static RequestSpecification updatePetByIdRequestSpec(Integer petId) {
         return defaultRequestSpec(POST_BY_ID_PATH)
                 .addHeaders(Map.of("Accept", "application/json"))
-                .addPathParam("petId", "10")
+                .addPathParam("petId", petId.toString())
                 .build();
     }
 

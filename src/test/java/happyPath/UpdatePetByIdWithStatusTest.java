@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static utils.PetShopAPI.setupPetForQuery;
 import static utils.PetShopAPI.updatePetByIdRequestSpec;
 
 public class UpdatePetByIdWithStatusTest {
@@ -18,8 +19,9 @@ public class UpdatePetByIdWithStatusTest {
 
     @BeforeAll
     static void setup() {
+        int petId = setupPetForQuery();
         response = RestAssured
-                .given(updatePetByIdRequestSpec())
+                .given(updatePetByIdRequestSpec(petId))
                 .queryParams(Map.of(
                         "name", "jason",
                         "status", "available"
@@ -49,7 +51,7 @@ public class UpdatePetByIdWithStatusTest {
     @Test
     @DisplayName("Given valid input data check data in return JSON")
     void updatePetById_ValidData_IdIs10() {
-        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(10));
+        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(7041));
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static utils.PetShopAPI.setupPetForQuery;
 import static utils.PetShopAPI.updatePetByIdRequestSpec;
 
 public class UpdatePetByIdNoStatusTest {
@@ -18,8 +19,9 @@ public class UpdatePetByIdNoStatusTest {
 
     @BeforeAll
     static void setup() {
+        int petId = setupPetForQuery();
         response = RestAssured
-                .given(updatePetByIdRequestSpec())
+                .given(updatePetByIdRequestSpec(petId))
                 .queryParams(Map.of(
                         "name", "jason"
                 ))

@@ -51,7 +51,6 @@ public class GetPetByIdHappyPathTest {
         MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.containsString(STATUS));
     }
 
-
     @Nested
     class UnhappyPathDefaultErrorTest {
 
