@@ -11,16 +11,19 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import static utils.PetShopAPI.setupPetForQuery;
+
 public class UploadPetImageTest {
   private static HttpResponse<String> response;
   private static JsonNode jsonBody;
 
   @BeforeAll
   static void setup() {
+    Integer petId = setupPetForQuery();
     try {
       HttpClient client = HttpClient.newHttpClient();
 
-      HttpRequest request = UploadPetImageRequest.uploadImageRequestSuccess();
+      HttpRequest request = UploadPetImageRequest.uploadImageRequestSuccess(petId);
 
       response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
@@ -44,7 +47,7 @@ public class UploadPetImageTest {
   @Test
   @DisplayName("Response contains correct pet ID")
   void uploadImageByPetId_ResponseContainsPetId() {
-    MatcherAssert.assertThat(jsonBody.get("id").asInt(), Matchers.is(10));
+    MatcherAssert.assertThat(jsonBody.get("id").asInt(), Matchers.is(7041));
   }
 
   @Test
