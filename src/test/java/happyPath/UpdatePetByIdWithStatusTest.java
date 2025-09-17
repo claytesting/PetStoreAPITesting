@@ -7,6 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pojos.Pet;
 
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import static utils.PetShopAPI.updatePetByIdRequestSpec;
 public class UpdatePetByIdWithStatusTest {
 
     private static Response response;
+    private static Pet pet;
 
     @BeforeAll
     static void setup() {
@@ -31,9 +33,9 @@ public class UpdatePetByIdWithStatusTest {
                 .post()
 
                 .then()
-                .log().all()
                 .extract().response();
 
+        pet = response.as(Pet.class);
     }
 
     @Test
@@ -45,19 +47,19 @@ public class UpdatePetByIdWithStatusTest {
     @Test
     @DisplayName("Given valid input data check data in return JSON")
     void updatePetById_ValidData_NameIsJason() {
-        MatcherAssert.assertThat(response.jsonPath().getString("name"), Matchers.is("jason"));
+        MatcherAssert.assertThat(pet.getName(), Matchers.is("jason"));
     }
 
     @Test
     @DisplayName("Given valid input data check data in return JSON")
     void updatePetById_ValidData_IdIs10() {
-        MatcherAssert.assertThat(response.jsonPath().getInt("id"), Matchers.is(7041));
+        MatcherAssert.assertThat(pet.getId(), Matchers.is(7041));
     }
 
     @Test
     @DisplayName("Given valid input data check data in return JSON")
     void updatePetById_ValidData_StatusIsAvailable() {
-        MatcherAssert.assertThat(response.jsonPath().getString("status"), Matchers.is("available"));
+        MatcherAssert.assertThat(pet.getStatus(), Matchers.is("available"));
     }
 
 
