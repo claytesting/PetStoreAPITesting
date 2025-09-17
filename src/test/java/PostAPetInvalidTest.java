@@ -26,7 +26,6 @@ public class PostAPetInvalidTest {
       .when()
       .post()
       .then()
-      .log().all()
       .extract().response();
 
     MatcherAssert.assertThat(response.statusCode(), Matchers.is(500));
@@ -54,7 +53,6 @@ public class PostAPetInvalidTest {
       .when()
       .post()
       .then()
-      .log().all()
       .extract().response();
 
     MatcherAssert.assertThat(response.statusCode(), Matchers.is(422));
@@ -84,7 +82,6 @@ public class PostAPetInvalidTest {
       .when()
       .post()
       .then()
-      .log().all()
       .extract().response();
 
     MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));

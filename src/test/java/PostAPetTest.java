@@ -49,7 +49,6 @@ public class PostAPetTest {
       .when()
       .post()
       .then()
-      .log().all()
       .extract().response();
 
     petResponse = response.as(Pet.class);
