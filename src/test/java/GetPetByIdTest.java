@@ -9,6 +9,7 @@ import org.junit.jupiter.api.*;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
+import static utils.PetShopAPI.setupPetForQuery;
 
 public class GetPetByIdTest {
 
@@ -16,11 +17,16 @@ public class GetPetByIdTest {
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String PATH = "/pet/{petId}";
 
-    private static final int validPetId = 10;
+    private static int validPetId;
     private static final String invalidPetId = "abcd";
     public static final int negativeId = -1234;
     private static final String NAME = "";
     private static final String STATUS = "available";
+
+    @BeforeAll
+    static void setup() {
+        validPetId = setupPetForQuery();
+    }
 
     private static RequestSpecBuilder getBaseSpecBuilder(String path) {
         return new RequestSpecBuilder()
@@ -56,8 +62,8 @@ public class GetPetByIdTest {
 
     @Nested
     class HappyPathTests {
-        @BeforeEach
-        public void beforeEach() {
+        @BeforeAll
+        public static void beforeEach() {
             getPetById(validPetId);
         }
 

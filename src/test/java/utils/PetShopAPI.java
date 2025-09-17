@@ -1,6 +1,8 @@
 package utils;
 
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Map;
 public class PetShopAPI {
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String POST_BY_ID_PATH = "/pet/{petId}";
+    private static final String POST_PET = "/pet";
 
     public static RequestSpecBuilder defaultRequestSpec(String path) {
         return new RequestSpecBuilder()
@@ -20,5 +23,44 @@ public class PetShopAPI {
                 .addHeaders(Map.of("Accept", "application/json"))
                 .addPathParam("petId", "10")
                 .build();
+    }
+
+    public static RequestSpecification updatePetByJSON() {
+        return defaultRequestSpec(POST_PET)
+                .addHeaders(Map.of("Accept", "application/json"))
+                .build();
+    }
+
+    public static Integer setupPetForQuery() {
+        Response newPet = RestAssured
+                .given(updatePetByJSON())
+                .contentType("application/json")
+                .body("""
+                        {
+                          "id": 7041,
+                          "name": "doggie",
+                          "category": {
+                            "id": 1,
+                            "name": "Dogs"
+                          },
+                          "photoUrls": [
+                            "string"
+                          ],
+                          "tags": [
+                            {
+                              "id": 0,
+                              "name": "string"
+                            }
+                          ],
+                          "status": "available"
+                        }
+                        """)
+                .when()
+                .post()
+                .then()
+                .log().all()
+                .extract().response();
+
+        return newPet.jsonPath().getInt("id");
     }
 }
