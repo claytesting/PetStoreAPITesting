@@ -1,12 +1,11 @@
-import pojos.Pet;
-import utils.UploadPetImageRequest;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pojos.Pet;
+import utils.UploadPetImageRequest;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -59,7 +58,7 @@ public class UploadPetImageTest {
   @Test
   @DisplayName("Response contains tag name playful")
   void uploadImageByPetId_ResponseContainsTagPlayful() {
-  MatcherAssert.assertThat(petResponse.getTags().getFirst().getName(), Matchers.is("string"));
+    MatcherAssert.assertThat(petResponse.getTags().getFirst().getName(), Matchers.is("string"));
   }
 
 
