@@ -9,9 +9,8 @@ import java.util.Map;
 
 public class PetShopAPI {
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
-    private static final String POST_BY_ID_PATH = "/pet/{petId}";
     private static final String POST_PET = "/pet";
-    private static final String GET_PET_PATH = "/pet/{petId}";
+    private static final String PET_ID_PATH = "/pet/{petId}";
 
 
     public static RequestSpecBuilder defaultRequestSpec(String path) {
@@ -21,7 +20,7 @@ public class PetShopAPI {
     }
 
     public static RequestSpecification updatePetByIdRequestSpec(Integer petId) {
-        return defaultRequestSpec(POST_BY_ID_PATH)
+        return defaultRequestSpec(PET_ID_PATH)
                 .addHeaders(Map.of("Accept", "application/json"))
                 .addPathParam("petId", petId.toString())
                 .build();
@@ -35,7 +34,7 @@ public class PetShopAPI {
     }
 
     public static RequestSpecification getPetByIdRequestSpec(Object petId) {
-        return defaultRequestSpec(GET_PET_PATH)
+        return defaultRequestSpec(PET_ID_PATH)
                 .addPathParams(Map.of(
                         "petId", petId
                 ))
@@ -44,6 +43,19 @@ public class PetShopAPI {
                 ))
                 .build();
     }
+
+    public static RequestSpecification deletePetByIdRequestSpec(Object petId) {
+        return defaultRequestSpec(PET_ID_PATH)
+                .addPathParams(Map.of(
+                        "petId", petId
+                ))
+                .addHeaders(Map.of(
+                        "Accept", "application/json"
+                ))
+                .build();
+    }
+
+
 
     public static Response getPetById(Object petId) {
         return RestAssured
