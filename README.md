@@ -62,4 +62,4 @@ The team decided to use the **Moscow** prioritisation method to set goals for th
 If another group was to take over this project, we would point them toward this README file as well as handing over the defect report and Postman collection. This would enable them to see all that has been found so far including all defects and how each endpoint works. If more help is required the team can be contacted via their emails.
 
 ## Class Diagram
-![an ugly class diagram](classDiagram\ClassDiagram.png)
+![an ugly class diagram](classDiagram/ClassDiagram.png)
