@@ -39,7 +39,6 @@ public class UpdateUserByUsernameHappyPathTest {
                 .put()
 
                 .then()
-                .log().all()
                 .extract().response();
 //        user = response.as(User.class);
 
