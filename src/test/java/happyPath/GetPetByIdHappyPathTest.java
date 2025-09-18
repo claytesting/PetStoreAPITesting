@@ -8,7 +8,6 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import pojos.Pet;
-
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
@@ -22,6 +21,15 @@ public class GetPetByIdHappyPathTest {
 
     private static final String NAME = "doggie";
     private static final String STATUS = "available";
+
+    private static final int categoryId = 1;
+    private static final String categoryName = "Dogs";
+
+    private static final String photoUrl = "string";
+
+    private static final int numOfTags = 1;
+    private static final int firstTagId = 0;
+    private static final String firstTagName = "string";
 
     @BeforeEach
     void setup() {
@@ -48,32 +56,44 @@ public class GetPetByIdHappyPathTest {
         MatcherAssert.assertThat(pet.getName(), Matchers.containsString(NAME));
     }
 
+    @Test
+    @DisplayName("Validate the category.id in the response")
+    void getPetWithId_validateResponseCategoryId() {
+        MatcherAssert.assertThat(pet.getCategory().getId(), is(categoryId));
+    }
+
+    @Test
+    @DisplayName("Validate the category.name in the response")
+    void getPetWithId_validateResponseCategoryName() {
+        MatcherAssert.assertThat(pet.getCategory().getName(), is(categoryName));
+    }
+
+    @Test
+    @DisplayName("Validate photoUrls in the response")
+    void getPetWithId_validateResponsePhotoUrls() {
+        MatcherAssert.assertThat(pet.getPhotoUrls(), hasItem(photoUrl));
+    }
+
+    @Test
+    @DisplayName("Validate the number of tags in the response")
+    void getPetWithId_validateResponseNumberOfTags() {
+        MatcherAssert.assertThat(pet.getTags().size(), is(numOfTags));
+    }
+
+    @Test
+    @DisplayName("Validate the id of the first tag in the response")
+    void getPetWithId_validateResponseTagsId() {
+        MatcherAssert.assertThat("first tag id", pet.getTags().get(0).getId(), is(firstTagId));
+    }
+
+    @Test
+    @DisplayName("Validate the name of the first tag in the response")
+    void getPetWithId_validateResponseTagsName() {
+        MatcherAssert.assertThat(pet.getTags().get(0).getName(), is(firstTagName));
+    }
+
     @Test @DisplayName("Validate the status in the response")
     void getPetWithId_validateResponseStatus() {
         MatcherAssert.assertThat(pet.getStatus(), Matchers.containsString(STATUS));
-    }
-
-    @Nested
-    class UnhappyPathDefaultErrorTest {
-
-        @Disabled("Pet Store usually responds 400 disabled for documentation")
-        @Test
-        @DisplayName("Get pet with unexpected inputs/headers gives default unexpected error")
-        void getPetDefaultError_Expect5xx() {
-            // Try to cause a server error with unexpected inputs/headers (returns 400)
-            String weirdId = "%00";
-            Response r = RestAssured
-                    .given()
-                    .spec(getPetByIdRequestSpec(weirdId))
-                    .header("Accept", "application/invalid+type")
-                    .when()
-                    .log().all()
-                    .get()
-                    .then()
-                    .log().all()
-                    .extract()
-                    .response();
-            MatcherAssert.assertThat(response.statusCode(), allOf(greaterThanOrEqualTo(500), lessThan(600)));
-        }
     }
 }
