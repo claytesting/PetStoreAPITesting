@@ -97,12 +97,9 @@ public class PetShopAPI {
     public static Response getPetById(Object petId) {
         return RestAssured
                 .given().spec(getPetByIdRequestSpec(petId))
-
                 .when()
-                .log().all()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -114,10 +111,8 @@ public class PetShopAPI {
                 .spec(getPetByIdRequestSpec(weirdId))
                 .header("Accept", "application/invalid+type")
                 .when()
-                .log().all()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -169,10 +164,8 @@ public class PetShopAPI {
                 .queryParam("username", username)
                 .queryParam("password", password)
                 .when()
-                .log().all()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -191,10 +184,8 @@ public class PetShopAPI {
                 .queryParam("username", "%00")
                 .queryParam("password", "%00")
                 .when()
-                .log().all()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -213,7 +204,6 @@ public class PetShopAPI {
                 .when()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -231,10 +221,8 @@ public class PetShopAPI {
         return RestAssured
                 .given().spec(getUserLogout_DefaultErrorSpec())
                 .when()
-                .log().all()
                 .get()
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
