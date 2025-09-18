@@ -4,7 +4,9 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import pojos.User;
 
+import java.util.List;
 import java.util.Map;
 
 public class PetShopAPI {
@@ -18,7 +20,6 @@ public class PetShopAPI {
     private static final String USER_PATH = "/user";
     private static final String UPDATE_USER_PATH = "/user/{username}";
     private static final String PET_ID_PATH = "/pet/{petId}";
-
 
 
     public static final String validUsername = "theUser";
@@ -53,6 +54,20 @@ public class PetShopAPI {
     public static RequestSpecification getUserByUsernameNoPathParamRequestSpec() {
         return defaultRequestSpec(USER_PATH)
                 .addHeaders(Map.of("Accept", "application/json"))
+                .build();
+    }
+
+    public static RequestSpecification createUserRequestSpec() {
+        return defaultRequestSpec(USER_PATH)
+                .addHeaders(Map.of("Accept", "application/json"))
+                .setContentType("application/json")
+                .build();
+    }
+
+    public static RequestSpecification createUsersListRequestSpec() {
+        return defaultRequestSpec("/user/createWithList")
+                .addHeaders(Map.of("Accept", "application/json"))
+                .setContentType("application/json")
                 .build();
     }
 
@@ -150,6 +165,30 @@ public class PetShopAPI {
         return newPet.jsonPath().getInt("id");
     }
 
+    public static Response createUser(User userBody) {
+        return RestAssured
+                .given()
+                .spec(createUserRequestSpec())
+                .body(userBody)
+                .when()
+                .post()
+                .then()
+                .extract()
+                .response();
+    }
+
+    public static Response createUsersList(List<User> userList) {
+        return RestAssured
+                .given()
+                .spec(createUsersListRequestSpec())
+                .body(userList)
+                .when()
+                .post()
+                .then()
+                .extract()
+                .response();
+    }
+
     public static RequestSpecification getUserLoginRequestSpec() {
         return defaultRequestSpec(GET_USER_LOGIN_PATH)
                 .addHeaders(Map.of(
@@ -161,13 +200,26 @@ public class PetShopAPI {
     public static Response getUserLogin(String username, String password) {
         return RestAssured
                 .given().spec(getUserLoginRequestSpec())
+
                 .queryParam("username", username)
                 .queryParam("password", password)
                 .when()
                 .get()
                 .then()
-                .extract()
-                .response();
+                .extract().response();
+    }
+
+    public static Response getPetsByStatus(String status) {
+        return RestAssured
+                .given()
+                .baseUri(BASE_URI)
+                .basePath("/pet/findByStatus")
+                .queryParam("status", status)
+                .header("accept", "application/json")
+                .when()
+                .get()
+                .then()
+                .extract().response();
     }
 
     public static RequestSpecification getUserLogin_DefaultErrorSpec() {
@@ -226,5 +278,4 @@ public class PetShopAPI {
                 .extract()
                 .response();
     }
-
 }
