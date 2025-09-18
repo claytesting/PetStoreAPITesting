@@ -1,74 +1,55 @@
 package happyPath;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pojos.User;
+import utils.PetShopAPI;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class CreateListOfUsersValidTest {
-    private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
-    private static Response response;
-
-    @BeforeAll
-    static void setup() {
-        RestAssured.baseURI = BASE_URI;
-    }
-
-    private Response postCreateListOfUserRequest(String body) {
-        return RestAssured
-                .given()
-                .basePath("/user/createWithList")
-                .contentType(ContentType.JSON)
-                .body(body)
-                .when()
-                .post()
-                .then()
-                .extract().response();
-    }
 
     @Test
     @DisplayName("Post user list with valid JSON array returns 200")
     void postValidUserList_Returns200() {
-        String accountList = """
-            [
-              {
-                "id": 5267,
-                "username": "toasting123",
-                "firstName": "Toast",
-                "lastName": "Bread",
-                "email": "toastingbread@bread.com",
-                "password": "ToasterForBr3ad",
-                "phone": "20567436",
-                "userStatus": 1
-              },
-              {
-                "id": 2542,
-                "username": "croissant321",
-                "firstName": "Croissant",
-                "lastName": "de Chocolat",
-                "email": "croissantde@chocolat.com",
-                "password": "Croissant!3920",
-                "phone": "02850743853454",
-                "userStatus": 1
-              },
-              {
-                "id": 25034,
-                "username": "berriees3243",
-                "firstName": "Straw",
-                "lastName": "Berry",
-                "email": "strawberry@fruitsmail.com",
-                "password": "S*raw*Bry2",
-                "phone": "250346502786",
-                "userStatus": 1
-              }
-            ]
-        """;
-        response = postCreateListOfUserRequest(accountList);
+
+        User user1 = new User();
+        user1.setId(5267);
+        user1.setUsername("toasting123");
+        user1.setFirstName("Toast");
+        user1.setLastName("Bread");
+        user1.setEmail("toastingbread@bread.com");
+        user1.setPassword("ToasterForBr3ad");
+        user1.setPhone("20567436");
+        user1.setUserStatus(1);
+
+        User user2 = new User();
+        user2.setId(2542);
+        user2.setUsername("croissant321");
+        user2.setFirstName("Croissant");
+        user2.setLastName("de Chocolat");
+        user2.setEmail("croissantde@chocolat.com");
+        user2.setPassword("Croissant!3920");
+        user2.setPhone("02850743853454");
+        user2.setUserStatus(1);
+
+        User user3 = new User();
+        user3.setId(25034);
+        user3.setUsername("berriees3243");
+        user3.setFirstName("Straw");
+        user3.setLastName("Berry");
+        user3.setEmail("strawberry@fruitsmail.com");
+        user3.setPassword("S*raw*Bry2");
+        user3.setPhone("250346502786");
+        user3.setUserStatus(1);
+
+        List<User> userList = List.of(user1, user2, user3);
+
+        Response response = PetShopAPI.createUsersList(userList);
         assertThat(response.statusCode(), is(200));
     }
 }
