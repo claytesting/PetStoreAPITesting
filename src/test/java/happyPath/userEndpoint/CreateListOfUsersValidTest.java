@@ -1,4 +1,4 @@
-package happyPath;
+package happyPath.userEndpoint;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
