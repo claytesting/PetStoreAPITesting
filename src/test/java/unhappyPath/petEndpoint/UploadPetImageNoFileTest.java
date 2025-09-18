@@ -1,6 +1,6 @@
 package unhappyPath.petEndpoint;
 
-import Utils.UploadPetImageRequest;
+import utils.UploadPetImageRequest;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
