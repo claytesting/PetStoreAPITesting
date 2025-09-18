@@ -30,7 +30,7 @@ public class GetInventoryInvalidTest {
                 .extract().response();
     }
 
-    // Actual Swagger Petstore behavior: always returns 500
+    //Actual Swagger Petstore behavior - always returns 500
     @Test
     @DisplayName("Unhappy Path: Given empty request return 500")
     void getInventory_EmptyRequest_Return500() {
