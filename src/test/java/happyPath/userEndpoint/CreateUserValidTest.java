@@ -17,7 +17,7 @@ public class CreateUserValidTest {
         String loginUsername = "user1"; // from source code in UserData.java class
         String loginPassword = "XXXXXXXXXXX"; // from source code and is default password for those usernames
 
-        Response loginResponse = PetShopAPI.loginUser(loginUsername, loginPassword);
+        Response loginResponse = PetShopAPI.getUserLogin(loginUsername, loginPassword);
         assertThat(loginResponse.statusCode(), is(200));
 
         User user = new User();
