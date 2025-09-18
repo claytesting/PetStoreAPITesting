@@ -22,15 +22,15 @@ public class UpdateUserByUsernameHappyPathTest {
     static void setup() {
 
         response = RestAssured
-                .given(updateUserByUsernameRequestSpec("theUser"))
+                .given(updateUserByUsernameRequestSpec("user1"))
                 .body("""
                         {
-                          "id": 10,
-                          "username": "theUser",
+                          "id": 1,
+                          "username": "user1",
                           "firstName": "John",
                           "lastName": "James",
                           "email": "john@email.com",
-                          "password": "12345",
+                          "password": "XXXXXXXXXXX",
                           "phone": "12345",
                           "userStatus": 1
                         }

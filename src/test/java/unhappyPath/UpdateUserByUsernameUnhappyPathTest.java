@@ -58,6 +58,6 @@ public class UpdateUserByUsernameUnhappyPathTest {
                           "userStatus": 1
                         }
                         """, "usercoolmccoolface");
-        MatcherAssert.assertThat(response.statusCode(), Matchers.is(400));
+        MatcherAssert.assertThat(response.statusCode(), Matchers.is(404));
     }
 }
