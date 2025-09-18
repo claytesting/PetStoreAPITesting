@@ -16,7 +16,6 @@ import static utils.PetShopAPI.updateUserByUsernameRequestSpec;
 public class UpdateUserByUsernameHappyPathTest {
 
     private static Response response;
-    private static User user;
 
     @BeforeAll
     static void setup() {
@@ -40,7 +39,6 @@ public class UpdateUserByUsernameHappyPathTest {
 
                 .then()
                 .extract().response();
-//        user = response.as(User.class);
 
     }
 
