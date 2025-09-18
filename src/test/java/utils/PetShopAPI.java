@@ -12,6 +12,7 @@ public class PetShopAPI {
     private static final String POST_BY_ID_PATH = "/pet/{petId}";
     private static final String POST_PET = "/pet";
     private static final String GET_PET_PATH = "/pet/{petId}";
+    private static final String UPDATE_USER_PATH = "/user/{username}";
 
 
     public static RequestSpecBuilder defaultRequestSpec(String path) {
@@ -44,6 +45,20 @@ public class PetShopAPI {
                 ))
                 .build();
     }
+
+    public static RequestSpecification updateUserByUsernameRequestSpec(Object username) {
+        return defaultRequestSpec(UPDATE_USER_PATH)
+                .addPathParams(Map.of(
+                        "username", username
+                ))
+                .addHeaders(Map.of(
+                        "Accept", "application/json"
+                ))
+                .setContentType("application/json")
+                .build();
+    }
+
+
 
     public static Response getPetById(Object petId) {
         return RestAssured
