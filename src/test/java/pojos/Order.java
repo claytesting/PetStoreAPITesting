@@ -2,7 +2,7 @@ package pojos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Store{
+public class Order {
 
 	@JsonProperty("petId")
 	private Integer petId;
