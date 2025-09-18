@@ -1,6 +1,6 @@
 package unhappyPath.petEndpoint;
 
-import Utils.UploadPetImageRequest;
+import utils.UploadPetImageRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
