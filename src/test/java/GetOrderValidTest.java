@@ -26,7 +26,6 @@ public class GetOrderValidTest {
                 .when()
                 .get()
                 .then()
-                .log().all()
                 .extract().response();
         order = response.as(Order.class);
     }
