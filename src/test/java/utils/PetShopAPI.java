@@ -10,6 +10,7 @@ import java.util.Map;
 public class PetShopAPI {
     private static final String BASE_URI = "https://petstore3.swagger.io/api/v3";
     private static final String POST_PET = "/pet";
+    private static final String UPDATE_USER_PATH = "/user/{username}";
     private static final String PET_ID_PATH = "/pet/{petId}";
 
 
@@ -44,6 +45,19 @@ public class PetShopAPI {
                 .build();
     }
 
+    public static RequestSpecification updateUserByUsernameRequestSpec(Object username) {
+        return defaultRequestSpec(UPDATE_USER_PATH)
+                .addPathParams(Map.of(
+                        "username", username))
+                .addHeaders(Map.of(
+                        "Accept", "application/json"
+                ))
+
+                .setContentType("application/json")
+
+                .build();
+    }
+
     public static RequestSpecification deletePetByIdRequestSpec(Object petId) {
         return defaultRequestSpec(PET_ID_PATH)
                 .addPathParams(Map.of(
@@ -52,10 +66,11 @@ public class PetShopAPI {
                 .addHeaders(Map.of(
                         "Accept", "application/json"
                 ))
+
+                .setContentType("application/json")
+
                 .build();
     }
-
-
 
     public static Response getPetById(Object petId) {
         return RestAssured
